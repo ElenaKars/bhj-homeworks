@@ -1,24 +1,29 @@
-const hole = getHole(index);
-const dead = document.getElementById("dead");
-const lost = document.getElementById("lost");
+const deadEl = document.getElementById("dead");
+const lostEl = document.getElementById("lost");
 
-hole.onclick = checkHole;
+function getHole(index){
+  return document.getElementById(`hole${index}`);;
+}
 
-function checkHole () {
-	for (let i = 1; i < 10, i++){
-		getHole[i].onclick;
-	}
-	if(getHole[i].classList.contains('hole_has-mole') = true){
-		dead.textContent++;
-		}
-		else {
-		lost.textContent++;
-		}
-	}
+for (let index = 1; index < 10; index++){
+	getHole(index).onclick = onHoleClick;
+}
 
-getHole = index => document.getElementById(`hole${index}`);
-
-// deactivateHole = index =>
-//       getHole( index ).className = 'hole',
-//     activateHole = index =>
-//       getHole( index ).className = 'hole hole_has-mole'
+function onHoleClick(){
+  if(this.className.includes('hole_has-mole')){
+    deadEl.textContent = +deadEl.textContent + 1;
+  }
+  else{
+    lostEl.textContent = +lostEl.textContent + 1;
+  }
+  if (+deadEl.textContent === 10 ){
+    alert("Вы победили!");
+    deadEl.textContent = 0;
+    lostEl.textContent = 0;
+  } 
+  else if(+lostEl.textContent === 5){
+    alert("Вы проиграли!");
+    deadEl.textContent = 0;
+    lostEl.textContent = 0;
+  }
+}
