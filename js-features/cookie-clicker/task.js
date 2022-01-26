@@ -1,23 +1,29 @@
-const image = document.getElementById("cookie");
-const counter = document.getElementById("clicker__counter");
-image.onclick = afterClick; 
-// function() {
-	// count();
-	// changeSizes();
-// };
-function count() {
-	counter.textContent++;
-}
-function changeSizes() {
-	if(counter.textContent % 2 === 0){
-		image.width = 300;
-	}
-	else {
-		image.width = 200;
-	}
-};
+const imageEl = document.getElementById("cookie");
+const counterEl = document.getElementById("clicker__counter");
+const speedEl = document.getElementById("speed");
 
-function afterClick(){
-	count();
-	changeSizes();
+let lastClickTime;
+
+imageEl.onclick = onImgHandler;
+
+function changeSizes() {
+  if (lastClickTime) {
+    const currentTime = +new Date();
+    const diff = currentTime - lastClickTime;
+    speedEl.textContent = (1000 / diff).toFixed(2)
+    lastClickTime = currentTime
+  } else {
+    lastClickTime = +new Date();
+  }
+
+  if (counterEl.textContent % 2 !== 0) {
+    imageEl.width = 300;
+  } else {
+    imageEl.width = 200;
+  }
+}
+
+function onImgHandler() {
+  counterEl.textContent++;
+  changeSizes();
 }
