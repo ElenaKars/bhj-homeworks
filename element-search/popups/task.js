@@ -26,7 +26,7 @@ successModalGoodBtnEl.addEventListener("click", () => {
 });
 
 
-//закратие по клику за пределами модального окна && при нажатии Esc
+//закрытие по клику за пределами модального окна && при нажатии Esc
 
 // const modalsEls = document.querySelectorAll(".modal");
 // const mainModalEl = document.querySelector("#modal_main");
