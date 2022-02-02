@@ -2,8 +2,7 @@ const menusEls = document.querySelectorAll(".menu");
 
 [...menusEls].forEach((el) => {
   const linksListEls = el.querySelectorAll(".menu__link");
-  const menusListEls = el.querySelectorAll(".menu_sub");
-  // let activeSubMenu; /второй вариант решения
+  let activeSubMenu;
 
   for (let elem of linksListEls) {
     elem.addEventListener("click", (evt) => {
@@ -11,22 +10,18 @@ const menusEls = document.querySelectorAll(".menu");
       const sibling = elem.nextElementSibling;
 
       if (sibling && sibling.classList.contains("menu_sub")) {
-        [...menusListEls].forEach((el) => {
-          el.classList.remove("menu_active");
-        });
+        if (sibling.classList.contains("menu_active")) {
+          sibling.classList.remove("menu_active");
+          return;
+        }
 
-        // if (activeSubMenu) {
-        //   activeSubMenu.classList.remove("menu_active");
-        // }
+        if (activeSubMenu) {
+          activeSubMenu.classList.remove("menu_active");
+        }
 
         sibling.classList.add("menu_active");
-        // activeSubMenu = sibling;
+        activeSubMenu = sibling;
       }
-      // for (const el of menusListEls) {
-      //   if (elem.closest("li") === el.closest("li")) {
-      //     el.classList.add("menu_active");
-      //   }
-      // }
     });
   }
 });
