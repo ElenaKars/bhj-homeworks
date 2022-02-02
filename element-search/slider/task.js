@@ -7,23 +7,24 @@ let activeSlideIdx = 0;
 
 dotsEls[0].classList.add("slider__dot_active");
 
+function setActiveImg(idx) {
+  slidesEls.forEach((slide) => slide.classList.remove("slider__item_active"));
+  dotsEls.forEach((dot) => dot.classList.remove("slider__dot_active"));
+
+  slidesEls[idx].classList.add("slider__item_active");
+  dotsEls[idx].classList.add("slider__dot_active");
+}
+
 dotsEls.forEach((dot, idx) => {
   dot.addEventListener("click", () => {
-    dotsEls[activeSlideIdx].classList.remove("slider__dot_active");
-    slidesEls[activeSlideIdx].classList.remove("slider__item_active");
-
     activeSlideIdx = idx;
 
-    slidesEls[activeSlideIdx].classList.add("slider__item_active");
-    dotsEls[activeSlideIdx].classList.add("slider__dot_active");
+    setActiveImg(idx);
   });
 });
 
 btnsEls.forEach((btn) => {
   btn.addEventListener("click", () => {
-    slidesEls[activeSlideIdx].classList.remove("slider__item_active");
-    dotsEls[activeSlideIdx].classList.remove("slider__dot_active");
-
     if (btn.classList.contains("slider__arrow_prev")) {
       activeSlideIdx -= 1;
       if (activeSlideIdx < 0) {
@@ -36,7 +37,6 @@ btnsEls.forEach((btn) => {
       }
     }
 
-    slidesEls[activeSlideIdx].classList.add("slider__item_active");
-    dotsEls[activeSlideIdx].classList.add("slider__dot_active");
+    setActiveImg(activeSlideIdx);
   });
 });
