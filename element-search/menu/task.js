@@ -6,10 +6,11 @@ const menusEls = document.querySelectorAll(".menu");
 
   for (let elem of linksListEls) {
     elem.addEventListener("click", (evt) => {
-      evt.preventDefault();
       const sibling = elem.nextElementSibling;
 
       if (sibling && sibling.classList.contains("menu_sub")) {
+        evt.preventDefault();
+
         if (sibling.classList.contains("menu_active")) {
           sibling.classList.remove("menu_active");
           return;
