@@ -14,3 +14,4 @@ function onTabClick(ind) {
   this.classList.add("tab_active");
   const activeTabInd = tabsEls.indexOf(this);
   tabsContentEls[activeTabInd].classList.add("tab__content_active");
+}
