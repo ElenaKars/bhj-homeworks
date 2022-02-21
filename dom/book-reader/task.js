@@ -1,23 +1,40 @@
-const btnsEls = Array.from(document.querySelectorAll(".font-size"));
 const bookEl = document.querySelector("#book");
-const fontSizeClassListBase = "font-size_";
-const baseClassName = "book";
+const bookControlsWrappersEls = [
+  ...document.querySelectorAll(".book__control")
+];
 
-btnsEls.forEach((btn) => {
-  btn.addEventListener("click", (event) => {
-    event.preventDefault();
+const baseClassesStrsMap = {
+  size: "font-size_",
+  textColor: "book_color-",
+  bgColor: "book_bg-"
+};
 
-    btnsEls.forEach((btn) => {
-      btn.classList.remove("font-size_active");
-    });
+bookControlsWrappersEls.forEach((bookControlsWrapperEl) => {
+  bookControlsWrapperEl.addEventListener("click", (evt) => {
+    if (evt.target.tagName === "A") {
+      evt.preventDefault();
 
-    btn.classList.add("font-size_active");
+      const controlEl = evt.target;
+      const dataAttrName = Object.keys(controlEl.dataset)[0]; 
+      const newClassNameBaseStr = baseClassesStrsMap[dataAttrName]; 
+      const dataAttrValue = controlEl.dataset[dataAttrName]; 
+      const newClassName = newClassNameBaseStr + dataAttrValue; 
+      const bookElClassNames = bookEl.className.split(" "); 
 
-    const size = btn.dataset.size;
-    if (!size) {
-      bookEl.className = baseClassName;
-    } else {
-      bookEl.className = baseClassName + " " + fontSizeClassListBase + size; 
+      if (bookElClassNames.length !== 1) {
+        const newClassNames = bookElClassNames
+          .filter((className) => !className.startsWith(newClassNameBaseStr)) 
+          .join(" ");
+
+        bookEl.className = newClassNames + " " + newClassName;
+      } else {
+        bookEl.classList.add(newClassName);
+      }
+
+      const groupControls = [...bookControlsWrapperEl.querySelectorAll("a")];
+      groupControls.forEach((control) => control.classList.remove("active"));
+
+      controlEl.classList.add("active");
     }
   });
 });
